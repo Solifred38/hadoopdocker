@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+/home/fromager/Dev/Docker/hadoop/tp/code/.metadata/.plugins/org.eclipse.jdt.core
