@@ -14,17 +14,30 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+/*
+Algorithme en 2 phases
+phase 1 : 
+    - comptage des mots sur l'ensemble des documents
 
+On filtre avec les stopwords et on sort le fichier de resultat qui sera utilise en entree de la phase 2
+
+phase 2 : 
+    - comptage des mots dans chaque document
+
+*/
 public class GoogleCountDriver extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         if (args.length != 2) {
-            System.out.println("Usage: [input] [output]");
+            System.out.println("Usage: [input] [output1] [output2]");
             System.exit(-1);
         }
+
         // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
        Job job = Job.getInstance(getConf());
        job.setJobName("googlecount");
 
+        // Ajout des stopwords dans le cache du job
+        job.addCacheFile(new Path("cache/stopwords_en.txt").toUri());
         // On precise les classes MyProgram, Map et Reduce
 
         job.setJarByClass(GoogleCountDriver.class);
@@ -32,7 +45,7 @@ public class GoogleCountDriver extends Configured implements Tool {
         job.setReducerClass(GoogleCountReducer.class);
 
  // Definition des types cle/valeur de notre probleme
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(DocKey.class);
         job.setOutputValueClass(IntWritable.class);
 
         job.setInputFormatClass(TextInputFormat.class);
