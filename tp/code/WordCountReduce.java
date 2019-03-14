@@ -7,7 +7,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class GoogleCountReducer extends Reducer<DocKey, IntWritable, DocKey, IntWritable> {
+public class WordCountReduce extends Reducer<DocKey, IntWritable, DocKey, IntWritable> {
 
     private IntWritable totalWordCount = new IntWritable();
 

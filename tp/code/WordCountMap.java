@@ -15,7 +15,7 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.filecache.DistributedCache;
 
-public class GoogleCountMapper extends Mapper<LongWritable, Text, DocKey, IntWritable> {
+public class WordCountMap extends Mapper<LongWritable, Text, DocKey, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
 //    private Text word = new Text();
@@ -52,14 +52,6 @@ public class GoogleCountMapper extends Mapper<LongWritable, Text, DocKey, IntWri
         }
     }
 
-/*    public void run(Context context) throws IOException, InterruptedException {
-        setup(context);
-        while (context.nextKeyValue()) {
-            map(context.getCurrentKey(), context.getCurrentValue(), context);
-        }
-        cleanup(context);
-    }
-*/
 }
 
 

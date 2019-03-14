@@ -25,9 +25,9 @@ phase 2 :
     - comptage des mots dans chaque document
 
 */
-public class GoogleCountDriver extends Configured implements Tool {
+public class WordCountDriver extends Configured implements Tool {
     public int run(String[] args) throws Exception {
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println("Usage: [input] [output1] [output2]");
             System.exit(-1);
         }
@@ -40,9 +40,9 @@ public class GoogleCountDriver extends Configured implements Tool {
         job.addCacheFile(new Path("cache/stopwords_en.txt").toUri());
         // On precise les classes MyProgram, Map et Reduce
 
-        job.setJarByClass(GoogleCountDriver.class);
-        job.setMapperClass(GoogleCountMapper.class);
-        job.setReducerClass(GoogleCountReducer.class);
+        job.setJarByClass(WordCountDriver.class);
+        job.setMapperClass(WordCountMap.class);
+        job.setReducerClass(WordCountReduce.class);
 
  // Definition des types cle/valeur de notre probleme
         job.setOutputKeyClass(DocKey.class);
@@ -53,6 +53,7 @@ public class GoogleCountDriver extends Configured implements Tool {
 
         Path inputFilePath = new Path(args[0]);
         Path outputFilePath = new Path(args[1]);
+
 	// trace des fichiers entres
 	System.out.println("inputFilePath : "+inputFilePath);
 // On accepte une entree recursive
@@ -67,11 +68,50 @@ public class GoogleCountDriver extends Configured implements Tool {
             fs.delete(outputFilePath, true);
         }
 
-        return job.waitForCompletion(true) ? 0: 1;
+//        return job.waitForCompletion(true) ? 0: 1;
+        job.waitForCompletion(true);
+
+// deuxieme partie du job
+         // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
+       Job job2 = Job.getInstance(getConf());
+       job2.setJobName("wordcountperdoc");
+
+        // outputFilePath sera aussi le inputFilePath du traitement suivant
+        //Path inputFilePath2 = new Path(outputFilePath.toString());
+       Path inputFilePath2 = outputFilePath;
+        Path outputFilePath2= new Path(args[2]);
+        job2.setJarByClass(WordCountDriver.class);
+        job2.setMapperClass(WordPerDocMap.class);
+       job2.setReducerClass(WordPerDocReduce.class);
+
+ // Definition des types cle/valeur de notre probleme
+        job2.setOutputKeyClass(ValueWordPerDoc.class);
+        job2.setOutputValueClass(IntWritable.class);
+
+        job2.setInputFormatClass(TextInputFormat.class);
+        job2.setOutputFormatClass(TextOutputFormat.class);
+
+    // trace des fichiers entres
+    System.out.println("inputFilePath2 : "+inputFilePath2);
+// On accepte une entree recursive
+       FileInputFormat.setInputDirRecursive(job2, true);
+
+        FileInputFormat.addInputPath(job2, inputFilePath2);
+        FileOutputFormat.setOutputPath(job2, outputFilePath2);
+
+        FileSystem fs2 = FileSystem.newInstance(getConf());
+
+        if (fs2.exists(outputFilePath2)) {
+            fs2.delete(outputFilePath2, true);
+        }
+
+
+        return job2.waitForCompletion(true) ? 0: 1;
+
     }
     public static void main(String[] args) throws Exception {
-        GoogleCountDriver googlecountDriver = new GoogleCountDriver();
-        int res = ToolRunner.run(googlecountDriver, args);
+        WordCountDriver WordcountDriver = new WordCountDriver();
+        int res = ToolRunner.run(WordcountDriver, args);
         System.exit(res);
     }
 }

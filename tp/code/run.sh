@@ -6,6 +6,7 @@ mv *.class ooc/tp1/
 jar -cvf ooc_tp1.jar -C . ooc 
 hdfs dfs -put ../data data
 hdfs dfs -put ../cache cache
-hadoop jar ooc_tp1.jar ooc.tp1.GoogleCountDriver data results
+hadoop jar ooc_tp1.jar ooc.tp1.WordCountDriver data results results2
 rm -rf results
 hdfs dfs -get results
+hdfs dfs -get results2
