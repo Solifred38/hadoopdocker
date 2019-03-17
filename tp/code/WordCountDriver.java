@@ -68,12 +68,12 @@ public class WordCountDriver extends Configured implements Tool {
             fs.delete(outputFilePath, true);
         }
 
-        return job.waitForCompletion(true) ? 0: 1;
-//        job.waitForCompletion(true);
+//        return job.waitForCompletion(true) ? 0: 1;
+        job.waitForCompletion(true);
 
 // deuxieme partie du job
          // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
-/*       Job job2 = Job.getInstance(getConf());
+       Job job2 = Job.getInstance(getConf());
        job2.setJobName("wordcountperdoc");
 
         // outputFilePath sera aussi le inputFilePath du traitement suivant
@@ -107,7 +107,7 @@ public class WordCountDriver extends Configured implements Tool {
 
 
         return job2.waitForCompletion(true) ? 0: 1;
-*/
+
     }
     public static void main(String[] args) throws Exception {
         WordCountDriver WordcountDriver = new WordCountDriver();
