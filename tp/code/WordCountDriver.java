@@ -33,7 +33,7 @@ public class WordCountDriver extends Configured implements Tool {
         }
 
         // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
-       Job job = Job.getInstance(getConf());
+/*       Job job = Job.getInstance(getConf());
        job.setJobName("googlecount");
 
         // Ajout des stopwords dans le cache du job
@@ -50,10 +50,10 @@ public class WordCountDriver extends Configured implements Tool {
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
-
+*/
         Path inputFilePath = new Path(args[0]);
         Path outputFilePath = new Path(args[1]);
-
+/*
 	// trace des fichiers entres
 	System.out.println("inputFilePath : "+inputFilePath);
 // On accepte une entree recursive
@@ -70,7 +70,7 @@ public class WordCountDriver extends Configured implements Tool {
 
 //        return job.waitForCompletion(true) ? 0: 1;
         job.waitForCompletion(true);
-
+*/
 // deuxieme partie du job
          // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
        Job job2 = Job.getInstance(getConf());
@@ -85,8 +85,9 @@ public class WordCountDriver extends Configured implements Tool {
        job2.setReducerClass(WordPerDocReduce.class);
 
  // Definition des types cle/valeur de notre probleme
-        job2.setOutputKeyClass(ValueWordPerDoc.class);
-        job2.setOutputValueClass(IntWritable.class);
+        job2.setOutputKeyClass(DocKey.class);
+//        job2.setOutputValueClass(ValueWordPerDoc.class);
+        job2.setOutputValueClass(WordCountWordPerDoc.class);
 
         job2.setInputFormatClass(TextInputFormat.class);
         job2.setOutputFormatClass(TextOutputFormat.class);

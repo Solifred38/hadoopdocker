@@ -16,8 +16,10 @@ value sera donc de la forme :
 	mot  nomfichier nombreOccurence
 */
 
-public class WordPerDocMap extends Mapper<LongWritable, Text, Text, ValueWordPerDoc>{
+public class WordPerDocMap extends Mapper<LongWritable, Text, DocKey, WordCountWordPerDoc>{
 
+	private DocKey myDockey = null;
+	private WordCountWordPerDoc custom= null;
 	
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 	
@@ -29,9 +31,10 @@ public class WordPerDocMap extends Mapper<LongWritable, Text, Text, ValueWordPer
 		String docname=tokenizer.nextToken();
 		int nb=Integer.parseInt(tokenizer.nextToken());
 		
-		ValueWordPerDoc custom=new ValueWordPerDoc(new Text(word), new IntWritable(nb));
+		myDockey= new DocKey(new Text(word),new Text(docname));
+		custom = new WordCountWordPerDoc(new IntWritable(nb), new IntWritable(nb));
 				
-        context.write(new Text(docname), custom);
+        context.write(myDockey, custom);
         
 	}
 }

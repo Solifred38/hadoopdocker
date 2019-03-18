@@ -11,7 +11,14 @@ public class WordCountWordPerDoc implements WritableComparable<WordCountWordPerD
 
 	IntWritable wordcount=new IntWritable();
 	IntWritable wordperdoc=new IntWritable();
-	
+	public WordCountWordPerDoc(){
+		super();
+	}
+	public WordCountWordPerDoc(IntWritable p_wordcount,IntWritable p_wordperdoc){
+		wordcount=p_wordcount;
+		wordperdoc=p_wordperdoc;
+
+	}
 	/**
 	 * @return the wordcount
 	 */
