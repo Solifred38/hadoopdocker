@@ -16,6 +16,7 @@ public class WordPerDocReduce extends Reducer<DocKey, WordCountWordPerDoc, DocKe
 			DocKey wordDocKey=new DocKey();
 			
 			
+			
 			for(WordCountWordPerDoc x: values)
 			{
 				sum+=x.getWordperdoc().get();
@@ -25,7 +26,6 @@ public class WordPerDocReduce extends Reducer<DocKey, WordCountWordPerDoc, DocKe
 			// mise a jour du nombre de mots dans l'ensemble des documents
 			for(WordCountWordPerDoc y: values)
 			{
-			System.out.println("Ecriture cle value wordDockey, sum");
 				y.setWordcount(new IntWritable(sum));
 				context.write(wordDocKey, y);
 			}
