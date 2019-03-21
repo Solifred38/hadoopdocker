@@ -34,7 +34,7 @@ public class WordCountDriver extends Configured implements Tool {
 
         // Creation d'un job en lui fournissant la configuration et une description textuelle de la tache
        Job job = Job.getInstance(getConf());
-       job.setJobName("googlecount");
+       job.setJobName("WordCountJob1");
 
         // Ajout des stopwords dans le cache du job
         job.addCacheFile(new Path("cache/stopwords_en.txt").toUri());
