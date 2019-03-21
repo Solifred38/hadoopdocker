@@ -6,6 +6,6 @@ RUN yum update -y ; \
     yum install mc -y ;
 ADD start.sh /
 ADD apache-maven-3.5.4-bin.tar.gz /
-ENV PATH $PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
+ENV PATH $PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:/apache-maven-3.5.4/bin
 ENV HADOOP_HOME /usr/local/hadoop
 
