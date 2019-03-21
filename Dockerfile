@@ -1,5 +1,5 @@
-#FROM sequenceiq/hadoop-docker
-FROM hadoop:fred
+FROM sequenceiq/hadoop-docker
+#FROM hadoop:fred
 RUN yum update -y ; \
     yum upgrade -y ; \
     yum install nano -y ; \
