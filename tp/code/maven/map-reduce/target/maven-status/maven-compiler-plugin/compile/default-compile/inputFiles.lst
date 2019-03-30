@@ -1,0 +1,8 @@
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordCountDriver.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordPerDocMap.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/ValueWordPerDoc.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordCountMap.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordPerDocReduce.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordCountWordPerDoc.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/DocKey.java
+/tp/code/maven/map-reduce/src/main/java/org/maven/tp1/WordCountReduce.java

@@ -1,0 +1,8 @@
+org/maven/tp1/WordCountMap.class
+org/maven/tp1/WordCountWordPerDoc.class
+org/maven/tp1/ValueWordPerDoc.class
+org/maven/tp1/WordPerDocReduce.class
+org/maven/tp1/WordCountReduce.class
+org/maven/tp1/WordPerDocMap.class
+org/maven/tp1/DocKey.class
+org/maven/tp1/WordCountDriver.class
